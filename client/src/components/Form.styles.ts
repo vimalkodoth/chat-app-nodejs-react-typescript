@@ -29,10 +29,19 @@ export const fieldCSS = css`
     }
 `;
 
-export const labelCSS = css`
-    flex: 0 1 6em;
+export const formWrapper = css`
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 
 export const submitButtonCSS = css`
     align-self: center;
+    margin: 20px 10px;
+`;
+
+export const labelCSS = css`
+    padding-right: 5px;
 `;
