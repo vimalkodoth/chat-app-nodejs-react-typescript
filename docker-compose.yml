@@ -1,0 +1,11 @@
+version: "3"
+services:
+  react-app:
+    image: chat-app
+    stdin_open: true
+    ports:
+      - "3000:3000"
+  api-server:
+    image: chat-server
+    ports:
+      - "3001:3001"

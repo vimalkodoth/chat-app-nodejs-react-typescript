@@ -1,0 +1,15 @@
+{
+    "extends": "../tsconfig",
+    "references": [
+        {
+            "name": "reactjs-coinmena",
+            "path": ".."
+        }
+    ],
+    "compilerOptions": {
+        "isolatedModules": false,
+        "types": ["jest"],
+        "rootDir": ".."
+    },
+    "include": ["../*"]
+}
