@@ -20,6 +20,7 @@
     "jest": "^27.5.1",
     "jsdoc": "^3.6.10",
     "nodemon": "^2.0.15",
+    "prettier": "^2.5.1",
     "regenerator-runtime": "^0.13.9"
   },
   "dependencies": {
