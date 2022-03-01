@@ -6,13 +6,13 @@ export function getMessageData({
     nickname,
     message,
 }: Partial<TMessage>): TMessage {
+    const hours = new Date(Date.now()).getHours().toString();
+    const minutes = new Date(Date.now()).getMinutes().toString();
     return {
         id: v4(),
         room,
         nickname,
-        time: `${new Date(Date.now()).getHours()}:${new Date(
-            Date.now()
-        ).getMinutes()}`,
+        time: new Date().toUTCString(),
         message,
     } as TMessage;
 }

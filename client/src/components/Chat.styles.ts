@@ -58,6 +58,15 @@ export const MessageMeta = css`
     margin-top: 0.2em;
 `;
 
+export const InfoMessageMeta = css`
+    font-size: 12px;
+`;
+
+export const InfoMessageContent = css`
+    p {
+        margin-bottom: 3px;
+    }
+`;
 export const MessageContent = (isYou: boolean) => css`
     font-size: 1rem;
     background-color: #128c7e;
@@ -76,7 +85,7 @@ export const MessageContent = (isYou: boolean) => css`
 export const MessageContainer = (isYou: boolean) => css`
     max-width: 50%;
     p {
-        margin: 0;
+        margin: 5px 0;
     }
     align-self: flex-start;
     ${!isYou &&

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 
 import {
     elemCSS,
@@ -15,10 +16,17 @@ import {
 import { useDispatch } from 'react-redux';
 import { setUser } from '../redux/userSlice';
 import { useGetRoomsQuery } from '../services/roomsApi';
+import { useLazyGetUserIsValidQuery } from '../services/usersApi';
+import { RootState } from '../redux/store';
 
 const Form = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const user = useSelector((state: RootState) => state.user);
+    const [
+        triggerGetUserIsValid,
+        { isSuccess: isGetUserIsValid, data, error: isGetUserIsValidError },
+    ] = useLazyGetUserIsValidQuery();
     const {
         data: chatRoomsData,
         error,
@@ -33,8 +41,16 @@ const Form = (): JSX.Element => {
 
     const onSubmit = (data) => {
         dispatch(setUser(data));
-        navigate('/chat-room');
+        triggerGetUserIsValid(data);
     };
+
+    useEffect(() => {
+        if (isGetUserIsValid) {
+            navigate('/chat-room');
+        } else if (isGetUserIsValidError) {
+            alert('An error has occured. Please provide a different nickname.');
+        }
+    }, [isGetUserIsValid, isGetUserIsValidError]);
 
     return (
         <>

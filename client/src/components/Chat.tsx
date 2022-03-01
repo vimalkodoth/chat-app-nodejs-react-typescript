@@ -7,7 +7,8 @@ import {
     Main,
     MessageContainer,
     MessageContent,
-    MessageLabel,
+    InfoMessageMeta,
+    InfoMessageContent,
     MessageMeta,
     Sidebar,
     UsersHeaderStyles,
@@ -112,6 +113,9 @@ Chat.Users = function ChatUsers({ users }) {
 Chat.UserMessage = function ChatUserMessage({ data }) {
     const nickname = useSelector((state: RootState) => state.user.nickname);
     const isYou = nickname === data.nickname;
+    const time = new Date(data.time);
+    const hours = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
     return (
         <div css={MessageContainer(isYou)}>
             <div css={MessageContent(isYou)}>
@@ -119,7 +123,7 @@ Chat.UserMessage = function ChatUserMessage({ data }) {
             </div>
             <div css={MessageMeta}>
                 <p>
-                    {data.time} | {data.nickname}
+                    {hours}:{minutes} | {data.nickname}
                 </p>
             </div>
         </div>
@@ -127,14 +131,17 @@ Chat.UserMessage = function ChatUserMessage({ data }) {
 };
 
 Chat.InfoMessage = function ChatInfoMessage({ data }) {
+    const time = new Date(data.time);
+    const hours = time.getHours().toString().padStart(2, '0');
+    const minutes = time.getMinutes().toString().padStart(2, '0');
     return (
         <div>
-            <div>
+            <div css={InfoMessageContent}>
                 <p>{data.message}</p>
             </div>
-            <div css={MessageMeta}>
-                <p>{data.time}</p>
-            </div>
+            <p css={InfoMessageMeta}>
+                {hours}:{minutes}
+            </p>
         </div>
     );
 };
