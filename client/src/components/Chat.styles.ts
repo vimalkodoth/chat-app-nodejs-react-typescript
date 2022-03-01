@@ -3,8 +3,10 @@ import { css } from '@emotion/react';
 
 export const Container = css`
     display: grid;
+    box-sizing: border-box;
     grid-gap: 0.5em 0.5em;
     grid-template-columns: 1fr 2fr;
+    grid-template-rows: 2fr 1fr;
     grid-template-areas:
         'sidebar main main'
         'sidebar main main'
@@ -12,8 +14,8 @@ export const Container = css`
         'input input input';
     border: 1px solid #e0e0e0;
     padding: 1em;
-    height: inherit;
-
+    min-height: 100%;
+    max-height: 100%;
     & > div {
         border: 1px solid #eee;
         border-radius: 0.2em;
