@@ -18,7 +18,7 @@ describe('Chat', () => {
         expect(wrapper.getElements()).toMatchSnapshot();
     });
     it('should render ChatMain component', async () => {
-        const wrapper = shallow(<Chat.Main></Chat.Main>);
+        const wrapper = shallow(<Chat.Main>{() => {}}</Chat.Main>);
         expect(wrapper.getElements()).toMatchSnapshot();
     });
     it('should render ChatLabel component', async () => {
