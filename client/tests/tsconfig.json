@@ -2,7 +2,7 @@
     "extends": "../tsconfig",
     "references": [
         {
-            "name": "reactjs-coinmena",
+            "name": "chat-app",
             "path": ".."
         }
     ],
