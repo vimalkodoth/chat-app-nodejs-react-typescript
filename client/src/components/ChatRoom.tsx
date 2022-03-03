@@ -16,6 +16,7 @@ function ChatRoom() {
         }
     }, []);
 
+    if (!room || !nickname) return null;
     return (
         <Chat>
             <Chat.Sidebar>

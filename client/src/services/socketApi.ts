@@ -3,29 +3,21 @@ import { connect, Socket } from 'socket.io-client';
 import { TMessage } from '../components/Chat';
 import { ChatEvent } from '../constants';
 
-let client: Socket,
-    connected = false;
+let socket: Socket | null = null;
 
-function getSocket() {
-    if (!client) {
-        client = connect('ws://localhost:3001');
-    }
-    return client;
+export function disConnectSocket() {
+    if (!socket) return null;
+    socket.disconnect();
+    socket = null;
+    return null;
 }
 
-const connectSocket = () => {
-    return new Promise<boolean>((resolve) => {
-        const client = getSocket();
-        if (connected) {
-            resolve(connected);
-            return;
-        }
-        client.on(ChatEvent.Connect, (data) => {
-            connected = true;
-            console.info(`Connected ${JSON.stringify(data)}`);
-            resolve(connected);
-        });
-    });
+export const getSocket = () => {
+    if (!socket) {
+        socket = connect('ws://localhost:3001');
+        console.log('connect called');
+    }
+    return socket;
 };
 
 export const socketApi = createApi({
@@ -37,15 +29,12 @@ export const socketApi = createApi({
             room: string;
             time: string;
             message: string;
+            socket: Socket | null;
         }>
     ) {
-        const client = getSocket();
-        await connectSocket();
-        const { topic } = data;
-        delete data.topic;
-        if (topic) {
-            client.emit(topic, data);
-        }
+        const { topic, ...restParams } = data;
+        const socket = getSocket();
+        topic && socket?.emit(topic, restParams);
         return { data: {} };
     },
     endpoints: (builder) => ({
@@ -84,16 +73,18 @@ export const socketApi = createApi({
                 }
             },
         }),
+
         getMessage: builder.query<{ messages: TMessage[] }, void>({
             queryFn() {
                 return { data: { messages: [] } };
             },
             async onCacheEntryAdded(
-                topic,
-                { cacheEntryRemoved, updateCachedData, cacheDataLoaded }
+                args,
+                { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
             ) {
                 await cacheDataLoaded;
-                await connectSocket();
+                const socket = getSocket();
+                console.log(socket);
                 const cb = (payload) => {
                     try {
                         updateCachedData((currentCacheData) => {
@@ -102,9 +93,10 @@ export const socketApi = createApi({
                     } catch {}
                 };
 
-                client.on(ChatEvent.ReceiveMessage, cb);
+                socket?.on(ChatEvent.ReceiveMessage, cb);
                 await cacheEntryRemoved;
-                client.off(ChatEvent.ReceiveMessage, cb);
+                socket?.off(ChatEvent.ReceiveMessage, cb);
+                disConnectSocket();
             },
         }),
         getRoomUsers: builder.query<{ users: any[] }, void>({
@@ -112,11 +104,11 @@ export const socketApi = createApi({
                 return { data: { users: [] } };
             },
             async onCacheEntryAdded(
-                topic,
-                { cacheEntryRemoved, updateCachedData, cacheDataLoaded }
+                args,
+                { updateCachedData, cacheDataLoaded, cacheEntryRemoved }
             ) {
                 await cacheDataLoaded;
-                await connectSocket();
+                const socket = getSocket();
                 const cb = (payload) => {
                     try {
                         updateCachedData((currentCacheData) => {
@@ -124,10 +116,10 @@ export const socketApi = createApi({
                         });
                     } catch {}
                 };
-
-                client.on(ChatEvent.RoomUsers, cb);
+                socket?.on(ChatEvent.RoomUsers, cb);
                 await cacheEntryRemoved;
-                client.off(ChatEvent.RoomUsers, cb);
+                socket?.off(ChatEvent.RoomUsers, cb);
+                disConnectSocket();
             },
         }),
     }),

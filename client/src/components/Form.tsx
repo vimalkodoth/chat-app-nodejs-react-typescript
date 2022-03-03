@@ -43,10 +43,10 @@ const Form = (): JSX.Element => {
     };
 
     useEffect(() => {
-        if (isGetUserIsValid) {
-            navigate('/chat-room');
-        } else if (isGetUserIsValidError) {
+        if (isGetUserIsValidError) {
             alert('An error has occured. Please provide a different nickname.');
+        } else if (isGetUserIsValid) {
+            navigate('/chat-room');
         }
     }, [isGetUserIsValid, isGetUserIsValidError]);
 

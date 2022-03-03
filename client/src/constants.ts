@@ -4,4 +4,5 @@ export enum ChatEvent {
     SendMessage = 'send_message',
     ReceiveMessage = 'receive_message',
     RoomUsers = 'room_users',
+    Disconnect = 'disconnect',
 }
