@@ -15,7 +15,6 @@ export function disConnectSocket() {
 export const getSocket = () => {
     if (!socket) {
         socket = connect('ws://localhost:3001');
-        console.log('connect called');
     }
     return socket;
 };
@@ -85,7 +84,6 @@ export const socketApi = createApi({
             ) {
                 await cacheDataLoaded;
                 const socket = getSocket();
-                console.log(socket);
                 const cb = (payload) => {
                     try {
                         updateCachedData((currentCacheData) => {

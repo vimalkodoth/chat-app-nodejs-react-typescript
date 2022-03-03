@@ -26,10 +26,6 @@ export default function useChatRoom() {
     });
 
     useEffect(() => {
-        console.log(messageResult);
-    }, [messageResult]);
-
-    useEffect(() => {
         return () => {
             disConnectSocket();
             dispatch(setUser({} as UserState));
