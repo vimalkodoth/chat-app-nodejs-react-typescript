@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
-import { TMessage } from '../components/Chat';
+import { TMessage } from '../components/common/Chat';
 import { getMessageData } from '../utils/helpers';
 import {
-    connectSocket,
     disConnectSocket,
     socketApi,
     useGetMessageQuery,

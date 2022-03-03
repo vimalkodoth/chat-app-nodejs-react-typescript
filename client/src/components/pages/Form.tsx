@@ -14,16 +14,16 @@ import {
 } from './Form.styles';
 
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userSlice';
-import { useGetRoomsQuery } from '../services/roomsApi';
-import { useLazyGetUserIsValidQuery } from '../services/usersApi';
+import { setUser } from '../../redux/userSlice';
+import { useGetRoomsQuery } from '../../services/roomsApi';
+import { useLazyGetUserIsValidQuery } from '../../services/usersApi';
 
 const Form = (): JSX.Element => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [
         triggerGetUserIsValid,
-        { isSuccess: isGetUserIsValid, data, error: isGetUserIsValidError },
+        { isSuccess: isGetUserIsValid, error: isGetUserIsValidError },
     ] = useLazyGetUserIsValidQuery();
     const {
         data: chatRoomsData,

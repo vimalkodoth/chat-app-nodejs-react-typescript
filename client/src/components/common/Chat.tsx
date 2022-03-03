@@ -14,7 +14,7 @@ import {
     UsersHeaderStyles,
 } from './Chat.styles';
 import { useForm } from 'react-hook-form';
-import { RootState } from '../redux/store';
+import { RootState } from '../../redux/store';
 import { useSelector } from 'react-redux';
 
 export default function Chat({ children, ...resetProps }) {

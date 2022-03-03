@@ -1,13 +1,22 @@
-import { TMessage } from '../components/Chat';
+import { TMessage } from '../components/common/Chat';
 import { v4 } from 'uuid';
 
+export interface IMessageData {
+    room: string;
+    nickname: string;
+    message: string;
+}
+
+/**
+ *
+ * @param {IMessageData}
+ * @returns
+ */
 export function getMessageData({
     room,
     nickname,
     message,
 }: Partial<TMessage>): TMessage {
-    const hours = new Date(Date.now()).getHours().toString();
-    const minutes = new Date(Date.now()).getMinutes().toString();
     return {
         id: v4(),
         room,

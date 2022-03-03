@@ -1,6 +1,6 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { connect, Socket } from 'socket.io-client';
-import { TMessage } from '../components/Chat';
+import { TMessage } from '../components/common/Chat';
 import { ChatEvent } from '../constants';
 
 let socket: Socket | null = null;
@@ -62,6 +62,7 @@ export const socketApi = createApi({
                         'getMessage',
                         undefined,
                         (draft) => {
+                            //redux-toolkit uses Immer internally for Immutability
                             draft.messages.push(message as TMessage);
                         }
                     )
@@ -88,6 +89,7 @@ export const socketApi = createApi({
                 const cb = (payload) => {
                     try {
                         updateCachedData((currentCacheData) => {
+                            //redux-toolkit uses Immer internally for Immutability
                             currentCacheData.messages.push(payload);
                         });
                     } catch {}

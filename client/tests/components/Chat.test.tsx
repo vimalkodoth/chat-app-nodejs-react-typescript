@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 import * as redux from 'react-redux';
-import Chat from '../../src/components/Chat';
+import Chat from '../../src/components/common/Chat';
 
 const testUser = 'testUser';
 const spy = jest.spyOn(redux, 'useSelector');
@@ -10,7 +10,7 @@ spy.mockReturnValue({ nickname: 'testUser' });
 
 describe('Chat', () => {
     it('should render Chat component', async () => {
-        const wrapper = shallow(<Chat />);
+        const wrapper = shallow(<Chat></Chat>);
         expect(wrapper.getElements()).toMatchSnapshot();
     });
     it('should render ChatSidebar component', async () => {

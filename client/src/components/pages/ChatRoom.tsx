@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import useChatRoom from '../hooks/useChatRoom';
-import { RootState } from '../redux/store';
-import Chat from './Chat';
+import useChatRoom from '../../hooks/useChatRoom';
+import { RootState } from '../../redux/store';
+import Chat from '../common/Chat';
 
 function ChatRoom() {
     const { room, nickname } = useSelector((state: RootState) => state.user);

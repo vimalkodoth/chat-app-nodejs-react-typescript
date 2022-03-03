@@ -1,8 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
-import { IData } from '../utils/dataService';
-import ChatRoom from './ChatRoom';
-import Form from './Form';
-import NotFound from './NotFound';
+import ChatRoom from './pages/ChatRoom';
+import Form from './pages/Form';
+import NotFound from './pages/NotFound';
 
 const AppRoutes = () => {
     return (
