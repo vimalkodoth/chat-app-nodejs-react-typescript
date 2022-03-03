@@ -23,6 +23,13 @@ export default function chat(io) {
         })
       );
       console.info(`User ${socket.id} Joined ${room}`);
+      io.to(room).emit(
+        "receive_message",
+        getFormattedInfoMessage({
+          nickname,
+          message: `${nickname} has joined the room`,
+        })
+      );
       io.to(room).emit("room_users", {
         room: room,
         users: getUsersByRoom(room, users),
