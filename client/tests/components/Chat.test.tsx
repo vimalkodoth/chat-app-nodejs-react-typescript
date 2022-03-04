@@ -38,6 +38,7 @@ describe('Chat', () => {
         expect(wrapper.getElements()).toMatchSnapshot();
     });
     it('should render ChatUserMessage component', async () => {
+        const message = 'hello!';
         const wrapper = shallow(
             <Chat.UserMessage
                 data={{
@@ -47,15 +48,16 @@ describe('Chat', () => {
                 }}
             />
         );
-        expect(wrapper.getElements()).toMatchSnapshot();
+        expect(wrapper.text().includes(message)).toBeTruthy();
     });
-    it('should render ChatUserMessage component', async () => {
+    it('should render ChatInfoMessage component', async () => {
+        const message = 'hello!';
         const wrapper = shallow(
             <Chat.InfoMessage
                 data={{ time: new Date().toUTCString(), message: 'hello!' }}
             />
         );
-        expect(wrapper.getElements()).toMatchSnapshot();
+        expect(wrapper.text().includes(message)).toBeTruthy();
     });
     it('should render ChatInput component', async () => {
         const onSelected = jest.fn();
