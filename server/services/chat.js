@@ -49,7 +49,7 @@ export default function chat(io) {
       const currentUsers = getUsers();
       const { users, user } = removeUser(socket.id, currentUsers);
       setUsers(users);
-      console.log(users);
+      console.info(users);
       console.info(user);
       if (user) {
         io.to(user.room).emit("room_users", {

@@ -9,7 +9,7 @@ import * as R from "ramda";
  * @returns {Array<Object>}
  */
 
-function addUser(id, nickname, room, users) {
+const addUser = (id, nickname, room, users) => {
   const user = { id, nickname, room };
   users = R.append(user, users);
   return users;
@@ -22,7 +22,7 @@ function addUser(id, nickname, room, users) {
  * @returns {object}
  */
 
-function getUser(id, users) {
+const getUser = (id, users) => {
   return R.find(R.propEq("id", id))(users);
 }
 
@@ -33,7 +33,7 @@ function getUser(id, users) {
  * @returns {{users: Array<Object; user: object}}
  */
 
-function removeUser(id, users) {
+const removeUser = (id, users) => {
   const user = R.find(R.propEq("id", id), users);
   if (user) {
     users = R.reject(R.propEq("id", user.id))(users);
@@ -48,7 +48,7 @@ function removeUser(id, users) {
  * @returns {Array<Object>}
  */
 
-function getUsersByRoom(room, users) {
+const getUsersByRoom = (room, users) => {
   return R.filter(R.propEq("room", room))(users);
 }
 
@@ -60,7 +60,7 @@ function getUsersByRoom(room, users) {
  * @returns {object}
  */
 
-function findUserByRoomAndName(name, room, users) {
+const findUserByRoomAndName = (name, room, users) => {
   const matchNickname = R.propEq("nickname", name);
   const matchRoom = R.propEq("room", room);
   const preds = R.allPass([matchNickname, matchRoom]);

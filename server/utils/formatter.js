@@ -5,7 +5,7 @@ import { v4 } from "uuid";
  * @param {{user: object, message: string}}
  * @returns {object}
  */
-export function getFormattedInfoMessage({ user, message }) {
+const getFormattedInfoMessage = ({ user, message }) => {
   const hours = new Date(Date.now()).getHours().toString();
   const minutes = new Date(Date.now()).getMinutes().toString();
   return {
@@ -16,3 +16,5 @@ export function getFormattedInfoMessage({ user, message }) {
     time: new Date().toUTCString(),
   };
 }
+
+export { getFormattedInfoMessage };
