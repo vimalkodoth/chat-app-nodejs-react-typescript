@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -7,9 +6,6 @@ module.exports = {
     plugins: [
         new webpack.DefinePlugin({
             'process.env.name': JSON.stringify(''),
-        }),
-        new CopyPlugin({
-            patterns: [{ from: './productData.json', to: '.' }],
         }),
     ],
 };
